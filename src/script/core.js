@@ -47,6 +47,7 @@ function constructProduct(product) {
         <div class="product-btn">
             <button class="product-btn-show" data-id="${product.id}">Заказать</button>
             <button class="product-btn-cart" data-id="${product.id}">В корзину</button>
+        </div>
     </div>`;
     
     return string;
