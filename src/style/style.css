@@ -120,25 +120,93 @@ body {
 }
 
 .popup {
-  height: 370px;
-  width: auto;
+  height: auto;
+  width: 992px;
   background: #fff;
   border-radius: 5px;
-  padding: 15px 25px;
+  padding: 10px 25px 30px;
+  position: relative;
 }
 
 .popup-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
 }
 
-.popup-info-img {
-  max-width: 30%;
-  min-width: 30%;
+.popup-info-block {
+  width: 30%;
+  border-right: 2px solid red;
+  padding-right: 20px;
+}
+
+.popup-info-block-img {
+  width: 100%;
+}
+
+.popup-info-block-price {
+  font-size: 20px;
+  color: red;
+}
+
+.popup-info-comment {
+  width: 70%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.popup-info-comment > label {
+  width: 20%;
+  display: inline-block;
+  text-align: right;
+  margin-right: 15px;
+}
+
+.popup-info-comment > textarea {
+  width: 80%;
+  height: 160px;
+  background-color: whitesmoke;
+  border: none;
+}
+
+.popup-phone {
+  margin-top: 30px;
+  margin-left: 10%;
+}
+
+.popup-phone > label {
+  margin-right: 15px;
+}
+
+.popup-phone > input {
+  background-color: whitesmoke;
+  border: none;
+  height: 25px;
+}
+
+.popup-close {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.popup-close::before {
+  content: "\f00d";
+  font-family: "FontAwesome";
+}
+
+.popup-close:hover {
+  opacity: 0.6;
+}
+
+.popup-close:active {
+  opacity: 0.8;
+}
+
+.popup-btn {
+  margin-left: 20%;
+  margin-top: 30px;
 }
 /*# sourceMappingURL=style.css.map */
