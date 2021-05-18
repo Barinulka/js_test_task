@@ -1,32 +1,67 @@
 'use strict';
 
 let cartButtons = document.querySelectorAll('.product-btn-cart');
+let cartPopupElem = document.querySelector('.cartPopup-elem');
 let cartPopup = document.querySelector('.cartPopup');
+let cart = document.querySelector('.cart');
+let bodyElem = document.querySelector('body');
+let titleHidden = document.querySelector('.cartPopup-title-hidden');
+let popupCartDel = document.querySelector('.popupCart-delete');
 
+// Массив, куда будут записываться объекты выбранных товаров
+let arr = [];
 
-cartButtons.forEach(function(cartButton){
-    cartButton.addEventListener('click', function(e){
-        let cartElem = e.target;
-        showCartPopup(cartElem);
-    });
-});
+// По умолчанию, если массив еще не заполнен отображается 0
+if (arr.length == 0) {
+    cart.innerText = 0;
+}
 
 
 /**
- * Функция генерирует попап заказа при клике по кнопке
+ * При клике на кнопку "В корзину" добавляется выбранный товар в массив 
+ * и увеличивается счетчик на иконке карзины
  */
-function showCartPopup(cartElem) {
-    let body = document.querySelector('body');
+cartButtons.forEach(function(cartButton){
+    cartButton.addEventListener('click', function(e){
+        let cartElem = e.target;
+        addToCart(cartElem);
+    });
+});
+
+/**
+ * Обработчик клика по иконки карзины
+ */
+cart.addEventListener('click', function(e){
+    if(cartPopup.classList.contains('hidden')) {
+        showCartPopup();
+        cartPopup.classList.remove('hidden');
+    } else {
+        cartPopup.classList.add('hidden');
+    }
+});
+
+
+
+/**
+ * Добавляем объект товара в массив и обновляем счетчик 
+ * @param {*} cartElem Нажатая кнопка
+ */
+function addToCart(cartElem) {
     let product = API.products.find(item => item.id == cartElem.getAttribute('data-id'));
-    console.log(product);
-    cartPopup.classList.remove('hidden');
-    cartPopup.insertAdjacentHTML("beforeend", createCartPopup(product));
-    
-    let close = document.querySelector('.popup-close');
-    // close.addEventListener('click', function(){
-    //     closeCartPopup();
-    // });
-    
+    arr.push(product);
+    cartPopupElem.insertAdjacentHTML("beforeend", addProduct(product));
+    cart.innerText = arr.length;   
+}
+
+/**
+ * Функция генерирует попап карзины при клике по кнопке
+ */
+function showCartPopup() {
+    if (arr.length == 0) {
+        titleHidden.style.display = 'block';
+    } else {
+        titleHidden.style.display = 'none';
+    } 
 }
 
 /**
@@ -35,48 +70,17 @@ function showCartPopup(cartElem) {
  * @param {string} product.price цена продукта
  * @param {string} product.img путь до картинки товара
  * @returns {string} html-разметка для товара 
- * <div>
- *     <h3>Название</h3>
- *     <div>
- *         <img>Картинка</img>    
- *         <span>Цена</span>
- *     </div>
- *     <div>
- *          <label>Комментарий</label>
- *          <textarea>
- *     </div>
- *     <label>Телефон</label>
- *     <input>
- *     <button>Заказать</button>
- * </div>
 */
-function createCartPopup(product) {
+function addProduct(product) {
     console.log(product);
-    let string = `
-        <h3 class="popupCart-title">Вы добавили в карзину:</h3>
-        <div class="popupCart-info">    
-                <img class="popupCart-info-img" src="${product.img}" alt="img">
-            <div class="popupCart-info-block">
-                <span class="popupCart-info-block-title">${product.title} руб.</span>
-                <span class="popupCart-info-block-price">${product.price} руб.</span>
-            </div>
+    let string = `<div class="popupCart-info">   
+        <img class="popupCart-info-img" src="${product.img}" alt="img">
+        <div class="popupCart-info-block">
+            <span class="popupCart-info-block-title">${product.title}</span>
+            <span class="popupCart-info-block-price">${product.price} руб.</span>
         </div>
-        <button class="product-btn-show popupCart-btn" data-id="${product.id}">Перейти в карзину</button>
-        <div class="popupCart-delete"></div>
-    `;
-    
+        <div class="popupCart-delete" data-attr="${product.id}"></div> 
+    </div>`;
 
     return string;
 }
-
-/**
- * Функция закрывает попап и очищает его
- */
-// function closePopup() {
-//         // let parent = e.target.parentNode;
-//         if(!popup.classList.contains('hidden')) {
-//             popup.classList.add('hidden');
-//             popup.innerHTML = "";
-//         }
-        
-// }

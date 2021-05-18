@@ -209,4 +209,93 @@ body {
   margin-left: 20%;
   margin-top: 30px;
 }
+
+.cart::before {
+  content: '\f07a';
+  font-family: "FontAwesome";
+  color: #000;
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+.cart {
+  vertical-align: middle;
+  margin: 25px 15px;
+  text-align: right;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.cartPopup {
+  position: absolute;
+  background: #fff;
+  -webkit-box-shadow: 0px 1px 16px 3px rgba(34, 60, 80, 0.2);
+          box-shadow: 0px 1px 16px 3px rgba(34, 60, 80, 0.2);
+  right: 24.2%;
+  top: 65px;
+  width: 600px;
+  z-index: 2;
+}
+
+.cartPopup-rotate {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #999;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  right: 60px;
+  top: -6.5px;
+}
+
+.cartPopup-title {
+  margin-top: 0;
+  background: #999;
+  padding: 20px;
+  color: #fff;
+}
+
+.cartPopup-title-hidden {
+  display: none;
+}
+
+.popupCart-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.popupCart-info-img {
+  width: 40%;
+}
+
+.popupCart-info-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 80%;
+}
+
+.popupCart-delete::before {
+  content: "\f00d";
+  font-family: "FontAwesome";
+}
+
+.popupCart-delete {
+  cursor: pointer;
+  position: relative;
+  top: -45px;
+  right: 15px;
+}
 /*# sourceMappingURL=style.css.map */
