@@ -1,43 +1,36 @@
 'use strict';
 
 let wrapper = document.querySelector('.product-listing-wrapper');
+wrapper.innerHTML = "<div class='container'></div>";
 
-/**
- * Функция инициализации работы скрипта
- */
+let container = document.querySelector('.container');
+const products = API.products;
+
 function init() {
-    productListing();
+    addHTML();
 }
 
 /**
- * Функция генерирует разметку листинга товаров 
- * Данные берутся из API.products
+ * Функция перебирает имеющийся API и вставляет разметку на страницу
  */
-function productListing() {
-    for (let product of API.products) {
-        wrapper.insertAdjacentHTML('beforeend', constructProduct(product));
+function addHTML() {
+    for (let product of products) {
+        container.insertAdjacentHTML('beforeend', generateHTML(product));
     }
+    wrapper.insertAdjacentHTML('beforeend', generateOrderPopup());
+    wrapper.insertAdjacentHTML('beforeend', generateCartPopup());
 }
 
+
 /**
+ * Формируем разметку
  * @param {number} product.id id продукта
  * @param {string} product.title название продукта
  * @param {string} product.price цена продукта
  * @param {string} product.img путь до картинки товара
  * @returns {string} html-разметка для товара 
- * <div>
- *     <img>Картинка</img>
- *     <div>
- *         <h3>Название</h3>
- *         <span>Цена</span>
- *     </div>
- *     <div>    
- *         <button>Заказать</button>
- *         <button>В корзину</button>
- *     </div>
- * </div>
  */
-function constructProduct(product) {
+function generateHTML(product) {
     let string = `<div class="product">
         <img class="product-img" src="${product.img}" alt="img">
         <div class="product-info">
@@ -47,11 +40,29 @@ function constructProduct(product) {
         <div class="product-btn">
             <button class="product-btn-show" data-id="${product.id}">Заказать</button>
             <button class="product-btn-cart" data-id="${product.id}">В корзину</button>
-        </div>
+        </div>  
     </div>`;
-    
+
     return string;
 }
 
+/**
+ * @returns {string} html - разметка для попапа заказа
+ */
+function generateOrderPopup() {
+    let stringOrder = '<div class="orderPopup hidden"></div>';
+
+    return stringOrder;
+}
+
+/**
+ * @returns {string} html - разметка для попапа корзины
+ */
+function generateCartPopup() {
+    let stringCart = '<div class="cartPopup hidden"></div>';
+
+    return stringCart;
+}
 
 init();
+

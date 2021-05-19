@@ -1,28 +1,5 @@
-$bodyColor: #f0f0f0;
+$black: #999;
 $white: #fff;
-$dark: #000;
+$gray: #999;
+$background: #f0f0f0;
 $red: red;
-$btn-show: red;
-$btn-cart: #e0e0e0;
-
-@mixin product-flex {
-    display: flex;
-    justify-content: space-between;
-}
-
-@mixin btn-flex {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-@mixin btn($color, $bg-color) {
-    width: 125px;
-    padding: 7px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    color: $color;
-    background-color: $bg-color;
-}
