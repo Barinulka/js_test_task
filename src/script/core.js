@@ -59,7 +59,7 @@ function generateOrderPopup() {
  * @returns {string} html - разметка для попапа корзины
  */
 function generateCartPopup() {
-    let stringCart = '<div class="cartPopup hidden"></div>';
+    let stringCart = '<div class="cartPopup"></div>';
 
     return stringCart;
 }

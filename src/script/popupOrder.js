@@ -3,9 +3,7 @@
 let btns = document.querySelectorAll('button');
 let orderPopup = document.querySelector('.orderPopup');
 let cartPopup = document.querySelector('.cartPopup');
-
-orderPopup.classList.add('animate__animated', 'animate__bounceIn');
-
+cartPopup.classList.add('animate__animated');
 
 btns.forEach(function(btn) {
     btn.addEventListener('click', function(e){
@@ -24,7 +22,6 @@ btns.forEach(function(btn) {
 function showPopup(id, value) {
     let product = API.products.find(item => item.id == id);
     if (value == 'Заказать') {
-        orderPopup.innerHTML = "";
         orderPopup.insertAdjacentHTML('beforeend', generatePopupOrder(product));
         orderPopup.classList.remove('hidden');
 
@@ -33,11 +30,19 @@ function showPopup(id, value) {
         closeOrderPopup.addEventListener('click', function(){
             if(!orderPopup.classList.contains('hidden')){
                 orderPopup.classList.add('hidden');
+                orderPopup.innerHTML = "";
+
             }
         });
     } else if (value == 'В корзину') {
-        console.log('функционал на стадии разработки');
-        // cartPopup.insertAdjacentHTML('beforeend', generatePopupCart(product));
+        // alert('функционал на стадии разработки');
+        cartPopup.insertAdjacentHTML('beforeend', generatePopupCart(product));
+        cartPopup.classList.add('animate__bounceInDown');
+        cartPopup.classList.remove('hidden');
+        setTimeout(function(){
+            cartPopup.classList.add('hidden');
+            cartPopup.innerHTML = "";
+        }, 3000);
     }
 }
 
@@ -74,16 +79,24 @@ function generatePopupOrder(product) {
     return string;
 }
 
-// /**
-//  * Функция принимает элемент кнопки
-//  * отрабатывает нажатие по этой кнопке
-//  * закрывает попап и очищает его
-//  */
-// function closePopup() {
-//         // let parent = e.target.parentNode;
-//         if(!popup.classList.contains('hidden')) {
-//             popup.classList.add('hidden');
-//             popup.innerHTML = "";
-//         }
-        
-// }
+/**
+ * @param {number} product.id id продукта
+ * @param {string} product.title название продукта
+ * @param {string} product.price цена продукта
+ * @param {string} product.img путь до картинки товара
+ * @returns {string} html-разметка для попапа заказа 
+*/
+function generatePopupCart(product) {
+    console.log(product);
+    let string = `<div class="popup_cart-rotate"></div>
+    <h3 class="popup_cart-add">Вы добавили в корзину:</h3>
+    <div class="popup_cart">
+        <div class="popup_cart-info"> 
+            <img class="popup_cart-info-img" src="${product.img}" alt="img">
+            <h3 class="popup_cart-info-title">${product.title}</h3>
+        </div>
+        <span class="popup_cart-info-block-price">${product.price} руб.</span>
+    </div>
+    <button class="product-btn-show popup-btn" data-id="${product.id}">Перейти в корзину</button>`;
+    return string;
+}
