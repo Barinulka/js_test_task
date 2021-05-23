@@ -3,14 +3,12 @@
 let btns = document.querySelectorAll('button');
 let orderPopup = document.querySelector('.orderPopup');
 let cartPopup = document.querySelector('.cartPopup');
-cartPopup.classList.add('animate__animated');
 
 btns.forEach(function(btn) {
     btn.addEventListener('click', function(e){
         let dataId = e.target.getAttribute('data-id');
         let value = e.target.innerText;
-        console.log(dataId);
-        console.log(value);
+        
         showPopup(dataId, value);
     });
 });
@@ -28,17 +26,13 @@ function showPopup(id, value) {
         let closeOrderPopup = document.querySelector('.popup-close');
 
         closeOrderPopup.addEventListener('click', function(){
-            if(!orderPopup.classList.contains('hidden')){
-                orderPopup.classList.add('hidden');
-                orderPopup.innerHTML = "";
-
-            }
+           closePopup();
         });
     } else if (value == 'В корзину') {
-        // alert('функционал на стадии разработки');
         cartPopup.insertAdjacentHTML('beforeend', generatePopupCart(product));
         cartPopup.classList.add('animate__bounceInDown');
         cartPopup.classList.remove('hidden');
+
         setTimeout(function(){
             cartPopup.classList.add('hidden');
             cartPopup.innerHTML = "";
@@ -98,5 +92,13 @@ function generatePopupCart(product) {
         <span class="popup_cart-info-block-price">${product.price} руб.</span>
     </div>
     <button class="product-btn-show popup-btn" data-id="${product.id}">Перейти в корзину</button>`;
+    
     return string;
+}
+
+function closePopup() {
+    if(!orderPopup.classList.contains('hidden')){
+        orderPopup.classList.add('hidden');
+        orderPopup.innerHTML = "";
+    }
 }
